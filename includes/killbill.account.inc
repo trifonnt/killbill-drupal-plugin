@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2011-2012 Ning, Inc.
+ * Copyright 2015 Trifon Trifonov
  *
  * Ning licenses this file to you under the Apache License, version 2.0
  * (the "License"); you may not use this file except in compliance with the
@@ -19,9 +20,9 @@ function killbill_retrieve_account($user) {
     // @Trifon
     // Set these values for your particular tenant
     $tenant = new Killbill_Tenant();
-    $tenant->apiKey    = 'startapp_test';
-    $tenant->apiSecret = 'test';
-
+    $tenant->apiKey    = variable_get('killbill_tenant_api_key', null);
+    $tenant->apiSecret = variable_get('killbill_tenant_api_secret', null);
+    
     $killbill_account = new Killbill_Account();
     $killbill_account->externalKey = $user->uid;
     return $killbill_account->get( $tenant->getTenantHeaders() );
