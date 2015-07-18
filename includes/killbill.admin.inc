@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2011-2012 Ning, Inc.
+ * Copyright 2015 Trifon Trifonov
  *
  * Ning licenses this file to you under the Apache License, version 2.0
  * (the "License"); you may not use this file except in compliance with the
@@ -40,7 +41,19 @@ function killbill_settings_form($form, &$form_state) {
         '#description' => t("Your Killbill api secret"),
         '#default_value' => variable_get('killbill_tenant_api_secret', NULL),
     );
-
+    $form['account']['killbill_user_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Killbill User name'),
+        '#description' => t("Your Killbill User name"),
+        '#default_value' => variable_get('killbill_user_name', NULL),
+    );
+    $form['account']['killbill_user_pass'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Killbill User password'),
+        '#description' => t("Your Killbill User password"),
+        '#default_value' => variable_get('killbill_user_pass', NULL),
+    );
+    
     $form['push'] = array(
         '#type' => 'fieldset',
         '#title' => t('Push notification settings'),
