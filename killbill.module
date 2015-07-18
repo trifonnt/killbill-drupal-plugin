@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2011-2012 Ning, Inc.
+ * Trifon Trifonov 2015
  *
  * Ning licenses this file to you under the Apache License, version 2.0
  * (the "License"); you may not use this file except in compliance with the
@@ -139,6 +140,11 @@ function killbill_user_insert(&$edit, $account, $category) {
         return;
     }
 
+    // Set these values for your particular tenant
+    $tenant = new Killbill_Tenant();
+    $tenant->apiKey    = variable_get('killbill_tenant_api_key', null);
+    $tenant->apiSecret = variable_get('killbill_tenant_api_secret', null);
+
     $accountData = new Killbill_Account();
     $accountData->externalKey = $account->uid;
     $accountData->name = $account->name;
@@ -157,7 +163,7 @@ function killbill_user_insert(&$edit, $account, $category) {
     }
 
     global $base_root;
-    $accountData->create($base_root, "DRUPAL", "DRUPAL_HOOK_USER_INSERT::" . ip_address());
+    $accountData->create($base_root, "DRUPAL", "DRUPAL_HOOK_USER_INSERT::" . ip_address(), $tenant->getTenantHeaders());
 }
 
 /**
@@ -217,6 +223,8 @@ function killbill_client_initialize($settings = NULL) {
         Killbill_Client::$serverUrl = $settings['serverUrl'];
         Killbill_Client::$apiKey = $settings['apiKey'];
         Killbill_Client::$apiSecret = $settings['apiSecret'];
+        Killbill_Client::$apiUser = variable_get('killbill_user_name', null);
+        Killbill_Client::$apiPassword = variable_get('killbill_user_pass', null);
 
         watchdog('killbill', 'Successfully registered the Killbill PHP library.', array(), WATCHDOG_INFO);
         return TRUE;
