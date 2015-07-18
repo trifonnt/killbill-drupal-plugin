@@ -222,7 +222,7 @@ function killbill_client_initialize($settings = NULL) {
         require_once $path . '/lib/killbill.php';
         Killbill_Client::$serverUrl = $settings['serverUrl'];
 //      Killbill_Client::$apiKey = $settings['apiKey'];
-        Killbill_Client::$apiSecret = $settings['apiSecret'];
+//      Killbill_Client::$apiSecret = $settings['apiSecret'];
         Killbill_Client::$apiUser = variable_get('killbill_user_name', null);
         Killbill_Client::$apiPassword = variable_get('killbill_user_pass', null);
 
