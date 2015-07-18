@@ -16,7 +16,13 @@
  */
 
 function killbill_retrieve_account($user) {
+    // @Trifon
+    // Set these values for your particular tenant
+    $tenant = new Killbill_Tenant();
+    $tenant->apiKey    = 'startapp_test';
+    $tenant->apiSecret = 'test';
+
     $killbill_account = new Killbill_Account();
     $killbill_account->externalKey = $user->uid;
-    return $killbill_account->get();
+    return $killbill_account->get( $tenant->getTenantHeaders() );
 }
