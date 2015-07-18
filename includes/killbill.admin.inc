@@ -91,22 +91,29 @@ function killbill_catalog() {
         return t('Could not initialize the Killbill client.');
     }
 
-    $catalog = new Killbill_Catalog();
-    $catalog->initialize();
+    // Set these values for your particular tenant
+    $tenant = new Killbill_Tenant();
+    $tenant->apiKey    = variable_get('killbill_tenant_api_key', null);
+    $tenant->apiSecret = variable_get('killbill_tenant_api_secret', null);
+    $currency = 'BGN'; //TODO - read currency from Product Catalog!
 
-    $header = array(t('Product name'), t('Product type'), t('Plan name'), t('Phase type'), t('Price in USD'));
+    $catalog = new Killbill_Catalog();
+    $catalog->initialize( $tenant->getTenantHeaders() ); //@Trifon
+
+    $header = array(t('Product name'), t('Product type'), t('Plan name'), t('Phase type'), t('Price in ') . $currency);
     $rows = array();
 
-    $currency = 'USD';
     foreach ($catalog->getBaseProducts() as $product) {
         foreach ($product->plans as $plan) {
             foreach ($plan->phases as $phase) {
+                $phasePrices = $phase->prices;
+                
                 $rows[] = array(
                     t('@name', array('@name' => $product->name)),
                     t('@type', array('@type' => $product->type)),
                     t('@plan', array('@plan' => $plan->name)),
                     t('@phase', array('@phase' => $phase->type)),
-                    t('@price', array('@price' => '$' . number_format($phase->prices->$currency, 2))),
+                    t('@price', array('@price' => number_format($phasePrices[0]->value, 2) . ' ' . $phasePrices[0]->currency)), //@Trifon
                 );
             }
         }
