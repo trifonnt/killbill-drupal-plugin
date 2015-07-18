@@ -162,8 +162,10 @@ function killbill_user_insert(&$edit, $account, $category) {
         $accountData->timeZone = $account->timezone;
     }
 
-    global $base_root;
-    $accountData->create($base_root, "DRUPAL", "DRUPAL_HOOK_USER_INSERT::" . ip_address(), $tenant->getTenantHeaders());
+//    global $base_root;
+    $killbill_url = variable_get('killbill_server_url', null);
+
+    $accountData->create($killbill_url, "DRUPAL", "DRUPAL_HOOK_USER_INSERT::" . ip_address(), $tenant->getTenantHeaders());
 }
 
 /**
