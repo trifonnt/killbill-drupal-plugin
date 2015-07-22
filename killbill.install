@@ -437,9 +437,14 @@ function killbill_install() {
   // - https://api.drupal.org/api/drupal/modules!field!field.crud.inc/function/field_create_field/7
   $t = get_t();
 
-  if(!field_info_field('kb_prod_tenant_id')) {
+  _kb_create_field_and_instance('kb_prod_tenant_id', 'Tenant(PRODUCTION) ID');
+  _create_field_and_instance('kb_prod_tenant_key', 'Tenant(PRODUCTION) Key');
+}
+
+function _kb_create_field_and_instance($field_machine_name, $field_human_name) {
+  if(!field_info_field( $field_machine_name )) {
     $field = array(
-      'field_name' => 'kb_prod_tenant_id',
+      'field_name' => $field_machine_name,
       'type' => 'text',
       'locked' => FALSE,
       'settings' => array(
@@ -449,9 +454,9 @@ function killbill_install() {
     field_create_field( $field );
 
     $instance = array(
-      'field_name' => 'kb_prod_tenant_id',
+      'field_name' => $field_machine_name,
       'entity_type' => 'user',
-      'label' => $t('Tenant(PRODUCTION) ID'),
+      'label' => $t( $field_human_name ),
       'bundle' => 'user',
       'required' => FALSE,
       'widget' => array(
@@ -466,37 +471,6 @@ function killbill_install() {
     );
     field_create_instance( $instance );
   }
-
-  if(!field_info_field('kb_prod_tenant_key')) {
-    $field = array(
-      'field_name' => 'kb_prod_tenant_key',
-      'type' => 'text',
-      'locked' => FALSE,
-      'settings' => array(
-        'required' => FALSE,
-      ),
-    );
-    field_create_field( $field );
-
-    $instance = array(
-      'field_name' => 'kb_prod_tenant_key',
-      'entity_type' => 'user',
-      'label' => $t('Tenant(PRODUCTION) Key'),
-      'bundle' => 'user',
-      'required' => FALSE,
-      'widget' => array(
-        'type'=>'text_textfield',
-      ),
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'type' => 'hidden',
-        ),
-      ),
-    );
-    field_create_instance( $instance );
-  }
-
 }
 
 function killbill_uninstall() {
