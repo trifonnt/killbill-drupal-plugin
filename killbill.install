@@ -435,13 +435,12 @@ function killbill_install() {
   //   How to programmatically add fields to user entity in D7 using the field API ?
   // - https://www.drupal.org/node/1404344
   // - https://api.drupal.org/api/drupal/modules!field!field.crud.inc/function/field_create_field/7
-  $t = get_t();
-
   _kb_create_field_and_instance('kb_prod_tenant_id', 'Tenant(PRODUCTION) ID');
   _create_field_and_instance('kb_prod_tenant_key', 'Tenant(PRODUCTION) Key');
 }
 
 function _kb_create_field_and_instance($field_machine_name, $field_human_name) {
+  $t = get_t();
   if(!field_info_field( $field_machine_name )) {
     $field = array(
       'field_name' => $field_machine_name,
