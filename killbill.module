@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2011-2012 Ning, Inc.
- * Trifon Trifonov 2015
+ * Copyright 2015 Trifon Trifonov
  *
  * Ning licenses this file to you under the Apache License, version 2.0
  * (the "License"); you may not use this file except in compliance with the
@@ -164,13 +164,8 @@ function killbill_user_update(&$edit, $account, $category) {
 
     $killbill_url = variable_get('killbill_server_url', null);
     $killbill_account->update($killbill_url, "DRUPAL", "DRUPAL_HOOK_USER_UPDATE::" . ip_address(), $tenant->getTenantHeaders());
-watchdog('kb-user-update', 'Killlbill account updated.', array(), WATCHDOG_INFO); //@Trifon
+watchdog('kb-user-update', 'Killlbill account updated.', array(), WATCHDOG_DEBUG); //@Trifon
 }
-
-function killbill_user_insert(&$edit, $account, $category) {
-    if (!killbill_client_initialize()) {
-        return;
-} 
 
 function killbill_user_insert(&$edit, $account, $category) {
     if (!killbill_client_initialize()) {
@@ -199,7 +194,6 @@ function killbill_user_insert(&$edit, $account, $category) {
         $accountData->timeZone = $account->timezone;
     }
 
-//    global $base_root;
     $killbill_url = variable_get('killbill_server_url', null);
 
     $accountData->create($killbill_url, "DRUPAL", "DRUPAL_HOOK_USER_INSERT::" . ip_address(), $tenant->getTenantHeaders());
@@ -260,8 +254,6 @@ function killbill_client_initialize($settings = NULL) {
     if (($path = libraries_get_path('killbill')) && file_exists($path . '/lib/killbill.php')) {
         require_once $path . '/lib/killbill.php';
         Killbill_Client::$serverUrl = $settings['serverUrl'];
-//      Killbill_Client::$apiKey = $settings['apiKey'];
-//      Killbill_Client::$apiSecret = $settings['apiSecret'];
         Killbill_Client::$apiUser = variable_get('killbill_user_name', null);
         Killbill_Client::$apiPassword = variable_get('killbill_user_pass', null);
 
