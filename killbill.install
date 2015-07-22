@@ -436,12 +436,13 @@ function killbill_install() {
   // - https://www.drupal.org/node/1404344
   $t = get_t();
 
+  watchdog('kb-module-install', 'field exists[kb_prod_tenant_id] = '. field_info_field('kb_prod_tenant_id'), array(), WATCHDOG_INFO);
   if(!field_info_field('kb_prod_tenant_id')) {
     $field = array(
       'field_name' => 'kb_prod_tenant_id',
       'type' => 'text',
       'settings' => array(
-        'required' => TRUE,
+        'required' => FALSE,
       ),
     );
     field_create_field( $field );
