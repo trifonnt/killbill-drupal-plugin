@@ -240,7 +240,7 @@ function killbill_user_insert(&$edit, $account, $category) {
 	$userData->password = uniqid();
 	$userData->roles = array('tenant_user');
 	
-	$createdUser = $userData->createUser('DRUPAL', 'DRUPAL_HOOK_USER_INSERT::'. ip_address(), 'New User created in Drupal.', $tenant->getTenantHeaders());
+	$createdUser = $userData->createUser('DRUPAL::'. variable_get('killbill_tenant_api_key', null), 'DRUPAL_HOOK_USER_INSERT::'. ip_address(), 'New User created in Drupal.', $tenant->getTenantHeaders());
 }
 
 /**
