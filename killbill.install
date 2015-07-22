@@ -1,6 +1,7 @@
 <?php
 /*
  * Copyright 2011-2012 Ning, Inc.
+ * Copyright 2015 Trifon Trifonov
  *
  * Ning licenses this file to you under the Apache License, version 2.0
  * (the "License"); you may not use this file except in compliance with the
@@ -427,8 +428,42 @@ function killbill_schema() {
 }
 
 function killbill_install() {
-    // Initialize the Killbill listener key variable.
-    variable_set('killbill_listener_key', substr(drupal_hash_base64(REQUEST_TIME), 0, 8));
+  // Initialize the Killbill listener key variable.
+  variable_set('killbill_listener_key', substr(drupal_hash_base64(REQUEST_TIME), 0, 8));
+
+  // @Trfion
+  //   How to programmatically add fields to user entity in D7 using the field API ?
+  // - https://www.drupal.org/node/1404344
+  $t = get_t();
+
+  if(!field_info_field('kb_prod_tenant_id')) {
+    $field = array(
+      'field_name' => 'kb_prod_tenant_id',
+      'type' => 'text',
+      'settings' => array(
+        'required' => TRUE,
+      ),
+    );
+    field_create_field( $field );
+
+    $instance = array(
+      'field_name' => 'kb_prod_tenant_id',
+      'entity_type' => 'user',
+      'label' => $t('Tenant(PRODUCTION) Id'),
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+  //    'display' => array(
+  //      'kb_prod_tenant_id' => array(
+  //        'label' => 'hidden',
+  //        'type' => 'hidden',
+  //      ),
+  //    ),
+    );
+    field_create_instance( $instance );
+  }
 }
 
 function killbill_uninstall() {
