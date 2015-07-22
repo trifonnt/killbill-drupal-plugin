@@ -434,6 +434,7 @@ function killbill_install() {
   // @Trfion
   //   How to programmatically add fields to user entity in D7 using the field API ?
   // - https://www.drupal.org/node/1404344
+  // - https://api.drupal.org/api/drupal/modules!field!field.crud.inc/function/field_create_field/7
   $t = get_t();
 
   watchdog('kb-module-install', 'field exists[kb_prod_tenant_id] = '. field_info_field('kb_prod_tenant_id'), array(), WATCHDOG_INFO);
@@ -441,7 +442,7 @@ function killbill_install() {
     $field = array(
       'field_name' => 'kb_prod_tenant_id',
       'type' => 'text',
-      'locked' => TRUE,
+      'locked' => FALSE,
       'settings' => array(
         'required' => FALSE,
       ),
@@ -457,12 +458,12 @@ function killbill_install() {
       'widget' => array(
         'type'=>'text_textfield',
       ),
-  //    'display' => array(
-  //      'kb_prod_tenant_id' => array(
-  //        'label' => 'hidden',
-  //        'type' => 'hidden',
-  //      ),
-  //    ),
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'type' => 'hidden',
+        ),
+      ),
     );
     field_create_instance( $instance );
   }
