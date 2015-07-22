@@ -93,7 +93,7 @@ function killbill_user_view($account, $view_mode, $langcode) {
 
     $account->content['killbill_account'] = array(
         '#type' => 'user_profile_category',
-        '#title' => t('Killbill information'),
+        '#title' => t('KillBill information'),
         '#weight' => 0,
     );
 
@@ -130,14 +130,14 @@ function killbill_user_view($account, $view_mode, $langcode) {
 
     $account->content['killbill_account']['account_kbid'] = array(
         '#type' => 'user_profile_item',
-        '#title' => t('Killbill account id'),
+        '#title' => t('KillBill account id'),
         '#markup' => check_plain($killbill_account->accountId),
     );
 
 	// @Trifon
     $account->content['killbill_tenant'] = array(
         '#type' => 'user_profile_category',
-        '#title' => t('Killbill Tenant info'),
+        '#title' => t('KillBill Tenant info'),
         '#weight' => 0,
     );
     $account->content['killbill_tenant']['tenant_prod_api_key'] = array(
@@ -286,23 +286,23 @@ function killbill_process_push_notification($key) {
 }
 
 function killbill_client_initialize($settings = NULL) {
-    // If no settings array was given, use the default account settings.
-    if (empty($settings)) {
-        $settings = array(
-            'serverUrl' => variable_get('killbill_server_url', 'http://127.0.0.1:8080'),
-            'apiKey' => variable_get('killbill_tenant_api_key', NULL),
-            'apiSecret' => variable_get('killbill_tenant_api_secret', NULL),
-        );
-        watchdog('killbill', 'Settings populated!', array(), WATCHDOG_DEBUG); //@Trifon
-    }
+	// If no settings array was given, use the default account settings.
+	if (empty($settings)) {
+		$settings = array(
+			'serverUrl' => variable_get('killbill_server_url', 'http://127.0.0.1:8080'),
+			'apiKey' => variable_get('killbill_tenant_api_key', NULL),
+			'apiSecret' => variable_get('killbill_tenant_api_secret', NULL),
+		);
+//	watchdog('killbill', 'Settings populated!', array(), WATCHDOG_DEBUG); //@Trifon
+	}
 
 	if (($path = libraries_get_path('killbill')) && file_exists($path . '/lib/killbill.php')) {
 		require_once $path . '/lib/killbill.php';
 		Killbill_Client::$serverUrl = $settings['serverUrl'];
 		Killbill_Client::$apiUser = variable_get('killbill_user_name', null);
 		Killbill_Client::$apiPassword = variable_get('killbill_user_pass', null);
-        
-		watchdog('killbill', 'Successfully registered the Killbill PHP library.', array(), WATCHDOG_DEBUG);
+
+//		watchdog('killbill', 'Successfully registered the Killbill PHP library.', array(), WATCHDOG_DEBUG);
 		return TRUE;
 	} else {
 		watchdog('killbill', 'Could not find the Killbill PHP client library in sites/all/libraries/killbill.', array(), WATCHDOG_ERROR);
