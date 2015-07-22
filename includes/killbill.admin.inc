@@ -53,7 +53,7 @@ function killbill_settings_form($form, &$form_state) {
         '#description' => t("Your Killbill User password"),
         '#default_value' => variable_get('killbill_user_pass', NULL),
     );
-    
+
     $form['push'] = array(
         '#type' => 'fieldset',
         '#title' => t('Push notification settings'),
@@ -87,18 +87,18 @@ function killbill_settings_form($form, &$form_state) {
 }
 
 function killbill_catalog() {
-    if (!killbill_client_initialize()) {
-        return t('Could not initialize the Killbill client.');
-    }
+	if (!killbill_client_initialize()) {
+		return t('Could not initialize the Killbill client.');
+	}
 
-    // Set these values for your particular tenant
-    $tenant = new Killbill_Tenant();
-    $tenant->apiKey    = variable_get('killbill_tenant_api_key', null);
-    $tenant->apiSecret = variable_get('killbill_tenant_api_secret', null);
-    $currency = 'BGN'; //TODO - read currency from Product Catalog!
+	// Set these values for your particular tenant
+	$tenant = new Killbill_Tenant();
+	$tenant->apiKey    = variable_get('killbill_tenant_api_key', null);
+	$tenant->apiSecret = variable_get('killbill_tenant_api_secret', null);
+	$currency = 'BGN'; //TODO - read currency from Product Catalog!
 
-    $catalog = new Killbill_Catalog();
-    $catalog->initialize( $tenant->getTenantHeaders() ); //@Trifon
+	$catalog = new Killbill_Catalog();
+	$catalog->initialize( $tenant->getTenantHeaders() ); //@Trifon
 
     $header = array(t('Product name'), t('Product type'), t('Plan name'), t('Phase type'), t('Price in ') . $currency);
     $rows = array();
