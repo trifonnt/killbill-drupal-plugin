@@ -441,6 +441,7 @@ function killbill_install() {
     $field = array(
       'field_name' => 'kb_prod_tenant_id',
       'type' => 'text',
+      'locked' => TRUE,
       'settings' => array(
         'required' => FALSE,
       ),
@@ -450,7 +451,7 @@ function killbill_install() {
     $instance = array(
       'field_name' => 'kb_prod_tenant_id',
       'entity_type' => 'user',
-      'label' => $t('Tenant(PRODUCTION) Id'),
+      'label' => $t('Tenant(PRODUCTION) ID'),
       'bundle' => 'user',
       'required' => FALSE,
       'widget' => array(
