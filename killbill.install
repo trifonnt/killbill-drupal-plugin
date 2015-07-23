@@ -435,6 +435,7 @@ function killbill_install() {
   //   How to programmatically add fields to user entity in D7 using the field API ?
   // - https://www.drupal.org/node/1404344
   // - https://api.drupal.org/api/drupal/modules!field!field.crud.inc/function/field_create_field/7
+
   _kb_create_field_and_instance('kb_prod_tenant_id', 'Tenant(PRODUCTION) ID');
   _create_field_and_instance('kb_prod_tenant_key', 'Tenant(PRODUCTION) Key');
 }
@@ -475,4 +476,52 @@ function _kb_create_field_and_instance($field_machine_name, $field_human_name) {
 function killbill_uninstall() {
     // Remove the push notification settings.
     variable_del('killbill_listener_key');
+}
+
+function _killbill_installed_fields() {
+  $t = get_t();
+  return array(
+    'kb_prod_tenant_id' = array(
+      'field_name' => 'kb_prod_tenant_id',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
+    'kb_prod_tenant_key' = array(
+      'field_name' => 'kb_prod_tenant_key',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
+  );
+}
+
+function _killbill_installed_instances() {
+  $t = get_t();
+  return array( 
+   '' => array(
+      'field_name' => $field_machine_name,
+      'label' => $t( $field_human_name ),
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above', //hidden
+          'type' => 'text', //hidden
+        ),
+      ),
+      'description' => 'Begin Date',
+    ),
+    '' =>  
+  );
 }
