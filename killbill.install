@@ -471,6 +471,43 @@ function _killbill_installed_fields() {
         'required' => FALSE,
       ),
     ),
+    'kb_prod_tenant_secret' => array(
+      'field_name' => 'kb_prod_tenant_secret',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
+
+    'kb_test_tenant_id' => array(
+      'field_name' => 'kb_test_tenant_id',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
+    'kb_test_tenant_key' => array(
+      'field_name' => 'kb_test_tenant_key',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
+    'kb_test_tenant_secret' => array(
+      'field_name' => 'kb_test_tenant_secret',
+      'cardinality' => 1,
+      'type' => 'text',
+      'locked' => FALSE,
+      'settings' => array(
+        'required' => FALSE,
+      ),
+    ),
   );
 }
 
@@ -505,11 +542,80 @@ function _killbill_installed_instances() {
       ),
       'display' => array(
         'default' => array(
-          'label' => 'above', //hidden
-          'type' => 'text', //hidden
+          'label' => 'above',
+          'type' => 'text',
         ),
       ),
       'description' => 'Tenant(PRODUCTION) Key',
+    ),
+    'kb_prod_tenant_secret' => array(
+      'field_name' => 'kb_prod_tenant_secret',
+      'label' => $t( 'Tenant(PRODUCTION) Secret' ),
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'text',
+        ),
+      ),
+      'description' => 'Tenant(PRODUCTION) Secret',
+    ),
+
+   'kb_test_tenant_id' => array(
+      'field_name' => 'kb_test_tenant_id',
+      'label' => $t( 'Tenant(TEST) ID' ),
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'text',
+        ),
+      ),
+      'description' => 'Tenant(TEST) ID',
+    ),
+    'kb_test_tenant_key' => array(
+      'field_name' => 'kb_test_tenant_key',
+      'label' => $t( 'Tenant(TEST) Key' ),
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'text',
+        ),
+      ),
+      'description' => 'Tenant(TEST) Key',
+    ),
+    'kb_test_tenant_secret' => array(
+      'field_name' => 'kb_test_tenant_secret',
+      'label' => $t( 'Tenant(TEST) Secret' ),
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'required' => FALSE,
+      'widget' => array(
+        'type'=>'text_textfield',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'text',
+        ),
+      ),
+      'description' => 'Tenant(TEST) Secret',
     ),
   );
 }
