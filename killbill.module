@@ -253,13 +253,13 @@ function killbill_user_insert(&$edit, $account, $category) {
 
 	// Update Drupal User!
 	$account->is_new = 0;
-	$account->kb_prod_tenant_id = $prodTenant->tenantId;
-	$account->kb_prod_tenant_key = $prodApiKey;
-	$account->kb_prod_tenant_secret = $prodApiSecret;
+	$account->kb_prod_tenant_id[LANGUAGE_NONE][0]['value'] = $prodTenant->tenantId;
+	$account->kb_prod_tenant_key[LANGUAGE_NONE][0]['value'] = $prodApiKey;
+	$account->kb_prod_tenant_secret[LANGUAGE_NONE][0]['value'] = $prodApiSecret;
 
-	$account->kb_test_tenant_id = $testTenant->tenantId;
-	$account->kb_test_tenant_key = $testApiKey;
-	$account->kb_test_tenant_secret = $testApiSecret;
+	$account->kb_test_tenant_id[LANGUAGE_NONE][0]['value'] = $testTenant->tenantId;
+	$account->kb_test_tenant_key[LANGUAGE_NONE][0]['value'] = $testApiKey;
+	$account->kb_test_tenant_secret[LANGUAGE_NONE][0]['value'] = $testApiSecret;
 	user_save((object) array('uid' => $account->uid), (array) $account);
 }
 
