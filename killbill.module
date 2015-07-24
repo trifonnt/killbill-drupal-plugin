@@ -243,6 +243,23 @@ function killbill_user_insert(&$edit, $account, $category) {
 	$createdUser = $userData->createUser('DRUPAL::'. variable_get('killbill_tenant_api_key', null), 'DRUPAL_HOOK_USER_INSERT::'. ip_address(), 'New User created in Drupal.', $tenant->getTenantHeaders());
 }
 
+function killbill_form_alter(&$form, &$form_state, $form_id) {
+	if ($form_id == 'user_profile_form') {
+		$form['#after_build'][] = '_killbill_check_properties';
+	}
+}
+function _killbill_check_properties(&$form, &$form_state) {
+	$form['kb_prod_tenant_id'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_prod_tenant_key'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_prod_tenant_secret'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+
+	$form['kb_test_tenant_id'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_test_tenant_key'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_test_tenant_secret'][und][0]['value']['#attributes']['readonly'] = 'readonly';
+
+	return $form;
+}
+
 /**
  * Processes an incoming push notification.
  *
