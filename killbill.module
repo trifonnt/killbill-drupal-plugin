@@ -241,6 +241,28 @@ function killbill_user_insert(&$edit, $account, $category) {
 	$userData->roles = array('tenant_user');
 	
 	$createdUser = $userData->createUser('DRUPAL::'. variable_get('killbill_tenant_api_key', null), 'DRUPAL_HOOK_USER_INSERT::'. ip_address(), 'New User created in Drupal.', $tenant->getTenantHeaders());
+
+// Create PROD AND TEST tenants!
+	$prodApiKey = 'prod_key_'. uniqid();
+	$prodApiSecret = uniqid();
+	$prodTenant = _kb_create_tenant($prodApiKey, $prodApiSecret);
+
+	$testApiKey = 'test_key_'. uniqid();
+	$testApiSecret = uniqid();
+	$testTenant = _kb_create_tenant($testApiKey, $testApiSecret);
+
+}
+
+function _kb_create_tenant($apiKey, $apiSecret, $externalKey = null) {
+	// Prepare the User data
+	$tenantData = new Killbill_Tenant();
+	$tenantData->externalKey = $externalKey;
+	$tenantData->apiKey = $apiKey;
+	$tenantData->apiSecret = $apiSecret;
+
+	// Create it.                       $user, $reason, $comment
+	$createdTenant = $tenantData->create('DRUPAL::'. variable_get('killbill_tenant_api_key', null), 'New User in Drupal.', 'New User in Drupal.');
+	return $createdTenant;
 }
 
 function killbill_form_alter(&$form, &$form_state, $form_id) {
