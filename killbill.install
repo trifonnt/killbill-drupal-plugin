@@ -529,11 +529,11 @@ function _killbill_installed_instances() {
           'type' => 'text', //hidden
         ),
       ),
-      'description' => 'Tenant(PRODUCTION) ID',
+      'description' => 'Tenant(PRODUCTION) Unique Identifier created by KillBill.',
     ),
     'kb_prod_tenant_key' => array(
       'field_name' => 'kb_prod_tenant_key',
-      'label' => $t( 'Tenant(PRODUCTION) Key' ),
+      'label' => $t( 'Tenant(PRODUCTION) API Key' ),
       'entity_type' => 'user',
       'bundle' => 'user',
       'required' => FALSE,
@@ -546,11 +546,11 @@ function _killbill_installed_instances() {
           'type' => 'text',
         ),
       ),
-      'description' => 'Tenant(PRODUCTION) Key',
+      'description' => 'API Key to be used when making requests for PRODUCTION Tenant.',
     ),
     'kb_prod_tenant_secret' => array(
       'field_name' => 'kb_prod_tenant_secret',
-      'label' => $t( 'Tenant(PRODUCTION) Secret' ),
+      'label' => $t( 'Tenant(PRODUCTION) API Secret' ),
       'entity_type' => 'user',
       'bundle' => 'user',
       'required' => FALSE,
@@ -563,7 +563,7 @@ function _killbill_installed_instances() {
           'type' => 'text',
         ),
       ),
-      'description' => 'Tenant(PRODUCTION) Secret',
+      'description' => 'API Secret to be used when making requests for PRODUCTION Tenant.',
     ),
 
    'kb_test_tenant_id' => array(
@@ -581,11 +581,11 @@ function _killbill_installed_instances() {
           'type' => 'text',
         ),
       ),
-      'description' => 'Tenant(TEST) ID',
+      'description' => 'Tenant(TEST) Unique Identifier created by KillBill.',
     ),
     'kb_test_tenant_key' => array(
       'field_name' => 'kb_test_tenant_key',
-      'label' => $t( 'Tenant(TEST) Key' ),
+      'label' => $t( 'Tenant(TEST) API Key' ),
       'entity_type' => 'user',
       'bundle' => 'user',
       'required' => FALSE,
@@ -598,11 +598,11 @@ function _killbill_installed_instances() {
           'type' => 'text',
         ),
       ),
-      'description' => 'Tenant(TEST) Key',
+      'description' => 'API Key to be used when making requests for TEST Tenant.',
     ),
     'kb_test_tenant_secret' => array(
       'field_name' => 'kb_test_tenant_secret',
-      'label' => $t( 'Tenant(TEST) Secret' ),
+      'label' => $t( 'Tenant(TEST) API Secret' ),
       'entity_type' => 'user',
       'bundle' => 'user',
       'required' => FALSE,
@@ -615,7 +615,7 @@ function _killbill_installed_instances() {
           'type' => 'text',
         ),
       ),
-      'description' => 'Tenant(TEST) Secret',
+      'description' => 'API Secret to be used when making requests for TEST Tenant.',
     ),
   );
 }
