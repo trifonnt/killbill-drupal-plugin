@@ -262,9 +262,9 @@ function _killbill_check_properties(&$form, &$form_state) {
 	$form['kb_prod_tenant_key'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
 	$form['kb_prod_tenant_secret'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
 
-//	$form['kb_test_tenant_id'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
-//	$form['kb_test_tenant_key'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
-//	$form['kb_test_tenant_secret'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_test_tenant_id'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_test_tenant_key'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
+	$form['kb_test_tenant_secret'][LANGUAGE_NONE][0]['value']['#attributes']['readonly'] = 'readonly';
 
 	return $form;
 }
