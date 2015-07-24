@@ -244,11 +244,14 @@ function killbill_user_insert(&$edit, $account, $category) {
 }
 
 function killbill_form_alter(&$form, &$form_state, $form_id) {
+	drupal_set_message('TRIFON - form_id = '. $form_id) 
+//	watchdog('kb-user-update', 'account->uid = '. $account->uid, array(), WATCHDOG_INFO); //@Trifon
 	if ($form_id == 'user_profile_form') {
 		$form['#after_build'][] = '_killbill_check_properties';
 	}
 }
 function _killbill_check_properties(&$form, &$form_state) {
+
 	$form['kb_prod_tenant_id'][und][0]['value']['#attributes']['readonly'] = 'readonly';
 	$form['kb_prod_tenant_key'][und][0]['value']['#attributes']['readonly'] = 'readonly';
 	$form['kb_prod_tenant_secret'][und][0]['value']['#attributes']['readonly'] = 'readonly';
